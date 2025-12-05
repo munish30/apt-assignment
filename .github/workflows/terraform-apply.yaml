@@ -37,7 +37,7 @@ jobs:
       - name: Setup TF backend (S3 + DynamoDB)
         run: |
           ./scripts/tf-backend-setup.sh \
-            "${TF_BUCKET}" \
+            "${TF_BUCKET}-$(uuidgen)" \
             "${TF_DDB_TABLE}" \
             "${AWS_REGION}"
 
