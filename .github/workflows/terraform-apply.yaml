@@ -18,12 +18,18 @@ jobs:
   terraform-apply:
     runs-on: ubuntu-latest
     env:
-      AWS_REGION: us-east-1
-      TF_BUCKET: tf-state
+      AWS_REGION: ${github.event.inputs.aws_region}
+      TF_BUCKET: tf-state-munish-apt-assignment
       TF_DDB_TABLE: tf-locks
     
 
     steps:
+      - name: Mask sensitive inputs
+        run: |
+          echo "::add-mask::${{ github.event.inputs.aws_access_key_id }}"
+          echo "::add-mask::${{ github.event.inputs.aws_secret_access_key }}"
+          echo "::add-mask::${{ github.event.inputs.aws_region }}"
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
@@ -37,7 +43,7 @@ jobs:
       - name: Setup TF backend (S3 + DynamoDB)
         run: |
           ./scripts/tf-backend-setup.sh \
-            "${TF_BUCKET}-$(uuidgen)" \
+            "${TF_BUCKET}" \
             "${TF_DDB_TABLE}" \
             "${AWS_REGION}"
 
