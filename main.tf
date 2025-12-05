@@ -53,13 +53,13 @@ module "asg" {
       delete_on_termination = true
       description           = "eth0"
       device_index          = 0
-      security_groups       = [ aws_default_security_group.default.id ]
+      security_groups       = [ module.vpc.default_security_group_id ]
     },
     {
       delete_on_termination = true
       description           = "eth1"
       device_index          = 1
-      security_groups       = [ aws_default_security_group.default.id ]
+      security_groups       = [ module.vpc.default_security_group_id ]
     }
   ]
 
