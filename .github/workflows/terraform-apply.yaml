@@ -17,6 +17,11 @@ on:
 jobs:
   terraform-apply:
     runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-1
+      TF_BUCKET: tf-state
+      TF_DDB_TABLE: tf-locks
+    
 
     steps:
       - name: Checkout repo
