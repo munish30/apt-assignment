@@ -1,0 +1,57 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.tfstate.d/
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.tfvars
+*.tfvars.json
+.terraform.lock.hcl
+
+# Provider configs
+.terraformrc
+terraform.rc
+
+# Kubernetes
+.kube/
+
+# Helm
+helmfile.d/
+charts/
+*.tgz
+.helm/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and env
+*.log
+.env
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+
+# Misc
+*.backup
+*.bak

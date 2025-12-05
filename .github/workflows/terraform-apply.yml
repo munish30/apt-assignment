@@ -1,0 +1,46 @@
+name: Terraform Apply with Runtime AWS Credentials
+
+on:
+  workflow_dispatch:
+    inputs:
+      aws_access_key_id:
+        description: "AWS Access Key ID"
+        required: true
+      aws_secret_access_key:
+        description: "AWS Secret Access Key"
+        required: true
+      aws_region:
+        description: "AWS Region"
+        required: true
+        default: "ap-south-1"
+
+jobs:
+  terraform-apply:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ github.event.inputs.aws_access_key_id }}
+          aws-secret-access-key: ${{ github.event.inputs.aws_secret_access_key }}
+          aws-region: ${{ github.event.inputs.aws_region }}
+
+      - name: Setup TF backend (S3 + DynamoDB)
+        run: |
+          ./scripts/setup-tf-backend.sh \
+            "${TF_BUCKET}" \
+            "${TF_DDB_TABLE}" \
+            "${AWS_REGION}"
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false
