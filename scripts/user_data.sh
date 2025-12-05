@@ -1,33 +1,17 @@
 #!/bin/bash
-
 set -xe
-
-###########################################
-# Install system dependencies
-###########################################
 yum update -y
 yum install -y python3 python3-venv python3-pip
 
-###########################################
-# Create FastAPI directory
-###########################################
 mkdir -p /opt/fastapi/app
 cd /opt/fastapi
 
-###########################################
-# Create Python virtual environment
-###########################################
 python3 -m venv venv
 source venv/bin/activate
-
-###########################################
-# Install FastAPI + Uvicorn
-###########################################
 pip install fastapi uvicorn[standard]
 
-###########################################
+
 # Create FastAPI application
-###########################################
 cat > /opt/fastapi/app/main.py << 'EOF'
 from fastapi import FastAPI
 
@@ -42,9 +26,8 @@ def health():
     return {"health": "ok"}
 EOF
 
-###########################################
+
 # Create systemd service for FastAPI
-###########################################
 cat > /etc/systemd/system/fastapi.service << 'EOF'
 [Unit]
 Description=FastAPI Application
@@ -58,9 +41,7 @@ Restart=always
 
 EOF
 
-###########################################
 # Start and enable FastAPI service
-###########################################
 systemctl daemon-reload
 systemctl enable fastapi
 systemctl start fastapi

@@ -28,7 +28,6 @@ jobs:
         run: |
           echo "::add-mask::${{ github.event.inputs.aws_access_key_id }}"
           echo "::add-mask::${{ github.event.inputs.aws_secret_access_key }}"
-          echo "::add-mask::${{ github.event.inputs.aws_region }}"
 
       - name: Checkout repo
         uses: actions/checkout@v4
