@@ -13,7 +13,7 @@ else
     echo "Creating bucket..."
     aws s3api create-bucket \
         --bucket "$BUCKET_NAME" \
-        --region "$AWS_REGION" \
+        --region "$AWS_REGION" 
 fi
 
 echo "Enabling bucket versioning..."
