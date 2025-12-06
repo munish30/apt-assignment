@@ -20,6 +20,8 @@
 ```
 
 ## Deployment
+NOTE TO THE TEAM: The credentials taken as input will be visible in runner logs. Please use temp logs to test.
+
 * Put the credentials in AWS Access Key and AWS Secret Access Key with relevant region
 * Run the workflow
 * Check the output URL in the last step logs.Something like `aws_alb` 
