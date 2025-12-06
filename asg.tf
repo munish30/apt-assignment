@@ -65,6 +65,8 @@ module "asg" {
   tags = {
     Environment = "dev"
   }
+
+  depends_on = [ module.vpc ]
 }
 
 # Create a new load balancer attachment
